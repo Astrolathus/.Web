@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <h5 class="card-title">${producto.nombreProducto}</h5>
                                 <p class="card-text">Precio: $${producto.precio}</p>
                                 <p class="card-text">Stock: ${producto.stock}</p>
-                                <button class="btn btn-primary" onclick="modificarProducto(${producto.id})">Modificar</button>
-                                <button class="btn btn-danger" onclick="eliminarProducto(${producto.id})">Eliminar</button>
+                                <button class="btn btn-primary" onclick="modificarProducto(${producto.IdProducto})">Modificar</button>
+                                <button class="btn btn-danger" onclick="eliminarProducto(${producto.IdProducto})">Eliminar</button>
                             </div>
                         </div>
                     </div>
@@ -62,21 +62,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
-function modificarProducto(idProducto) {
-    console.log('Modificar producto con ID:', idProducto);
+function modificarProducto(IdProducto) {
+    console.log('Modificar producto con ID:', IdProducto);
     if (idProducto) {
-        window.location.href = `/modificarProducto.html?IdProducto=${idProducto}`;
+        window.location.href = `/modificarProducto.html?IdProducto=${IdProducto}`;
         
     } else {
-        console.error('ID de producto no válido:', idProducto);
+        console.error('ID de producto no válido:', IdProducto);
     }
 }
 
-function eliminarProducto(idProducto) {
-    console.log('Eliminar producto con ID:', idProducto);
+function eliminarProducto(IdProducto) {
+    console.log('Eliminar producto con ID:', IdProducto);
     // Aquí puedes implementar la lógica para eliminar el producto si es necesario
     function eliminar(id) {
-        fetch('/eliminarProducto/' + idProducto, {
+        fetch('/eliminarProducto/' + IdProducto, {
             method: 'DELETE'
         })
         .then(function(response) {
