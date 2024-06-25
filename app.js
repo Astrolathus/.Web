@@ -157,23 +157,29 @@ app.post('/subir_imagenes', upload.single('imagen'), (req, res) => {
 });*/
 
 
-app.delete('/eliminarProducto/:idProducto', (req, res) => {
-    //Obtiene el parámetro 'id' de la URL para eliminar la pelicula en especifico
-    const id = req.params.id;
-    //Define la consulta SQL para eliminar una película donde el ID coincida
-    const sql = 'DELETE FROM productos WHERE id = ?';
-    //Ejecuta la consulta SQL, utilizando el Id que se enviara a la consulta SQL
-    connection.query(sql, [id], (err, result) => {
-        // Si ocurre un error durante la ejecución de la consulta, lanza una excepción
-        if (err) throw err;
-        // Imprime un mensaje en la consola indicando que la película fue eliminada correctamente
-        console.log('Película eliminada correctamente.');
-        // Envía una respuesta HTTP 200 OK al cliente, indicando que la eliminación fue exitosa
-        res.sendStatus(200); 
+app.delete('/eliminarProducto/:IdProducto', (req, res) => {
+    const IdProducto = req.params.IdProducto;
+    console.log(`Intentando eliminar el producto con IdProducto: ${IdProducto}`);
+    
+    const query = 'DELETE FROM productos WHERE IdProducto = ?';
+
+    connection.query(query, [IdProducto], (error, results) => {
+        if (error) {
+            console.error('Error al eliminar producto:', error);
+            res.status(500).send('Error al eliminar producto.');
+        } else {
+            console.log('Resultados de la eliminación:', results);
+            if (results.affectedRows > 0) {
+                res.send('Producto eliminado correctamente.');
+            } else {
+                res.status(404).send('Producto no encontrado.');
+            }
+        }
     });
 });
+            
 // GET para obtener un producto por su ID
-app.get('/productos/:idProducto', (req, res) => {
+app.get('/productos/:IdProducto', (req, res) => {
     const idProducto = req.params.idProducto;
   
     const sql = 'SELECT * FROM productos WHERE idProducto = ?';
@@ -217,6 +223,7 @@ app.post('/modificar_producto', upload.single('imagen'), (req, res) => {
         res.redirect('/registrarProductos.html');
     });
 });
+
 
 
 
