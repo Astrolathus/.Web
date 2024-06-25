@@ -1,0 +1,326 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+}
+
+header {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #ffcc00;
+}
+
+.nav-link {
+    font-size: 1.1em;
+    transition: color 0.3s;
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #ffcc00;
+}
+
+.navbar-toggler-icon {
+    filter: invert(100%);
+}
+
+.nav-item .nav-link.active {
+    color: #ffcc00 !important;
+}
+
+.container {
+    max-width: 1100px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #ffcc00;
+}
+
+.nav-link {
+    font-size: 1.1em;
+    transition: color 0.3s;
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #ffcc00;
+}
+
+.navbar-toggler-icon {
+    filter: invert(100%);
+}
+
+.nav-item .nav-link.active {
+    color: #ffcc00 !important;
+}
+
+.container {
+    max-width: 1100px;
+}
+
+.footer {
+    position: relative; /* Cambiar a 'fixed' si prefieres que esté siempre al final de la ventana */
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    clear: both; /* Añade espacio al final del contenido */
+}
+
+.footer .container {
+    position: relative; /* Asegura que el contenido dentro del footer sea relativo */
+}
+
+.footer .row {
+    justify-content: center;
+    text-align: left;
+    margin: 0 auto; 
+    max-width: 1200px;
+}
+
+.footer .col-md-4 {
+    margin-bottom: 20px;
+}
+
+.footer .mt-3 {
+    border-top: 1px solid #444;
+    padding-top: 10px;
+    color: #aaaaaa;
+}
+
+.footer h5 {
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+.footer p {
+    color: #dddddd;
+}
+
+.footer a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+
+#viewCartBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+.cart {
+    display: flex;
+    align-items: center;
+}
+
+.cart-icon {
+    font-size: 1.5em;
+    margin-right: 0.5em;
+}
+
+.cart-count, .cart-total {
+    margin-right: 1em;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2em;
+}
+
+.product-card {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1em;
+    margin: 1em;
+    width: 200px;
+    text-align: center;
+}
+
+.add-to-cart {
+    background-color: #1000a3;
+    color: #fff;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-to-cart:hover {
+    background-color: #1000a3;
+}
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.card-text {
+    color: #666;
+}
+
+
+.register-link {
+    display: inline-block; 
+    margin-top: 10px;
+}
+
+.clasebotonvista{
+
+    align-items: 100px;
+}
+
+.admin-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+
+main {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.clasebotonvista {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.admin-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.admin-btn:active {
+    background-color: #00408d;
+    transform: translateY(1px);
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 200px;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-text {
+    margin: 8px 0 0;
+}
+
+.containerD {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
