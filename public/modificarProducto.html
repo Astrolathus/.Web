@@ -24,25 +24,42 @@
             </div>
         </nav>
     </header>
+    <h2>Modificar Producto</h2> <!-- Encabezado principal de la página -->
+    <form id="modificar-form" action="/modificar_producto" method="POST"> <!-- Formulario para modificar una película, que envía los datos mediante el método POST a la ruta /modificar_pelicula -->
+        <input type="hidden" id="producto-id" name="id"> <!-- Campo oculto para almacenar el ID de la película -->
+        <div class="form-group">
+            <label for="nombreProducto">Nombre del producto:</label> <!-- Etiqueta para el campo de nombre -->
+            <input type="text" id="nombreProducto" name="nombreProducto" required> <!-- Campo de entrada de texto para el nombre de la película, obligatorio -->
+        </div>
+        <div class="form-group">
+            <label for="IdMarca">Marca:</label> <!-- Etiqueta para el campo de categoría -->
+            <select id="IdMarca" name="IdMarca" > <!-- Menú desplegable para seleccionar la categoría de la película, obligatorio -->
+                <!-- Opciones de categorías disponibles -->
+                <option value="1">X</option>
+                <option value="2">Y</option>
+                <option value="3">Z</option>
+            </select><!-- Campo de entrada de texto para la descripción de la película, obligatorio -->
+        </div>
+        <div class="form-group">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="stock">Precio:</label>
+            <input type="number" id="stock" name="stock" min="0" step="0" required>
+          </div>
+        <div class="form-group"> 
+            <label for="IdProveedor">Marca:</label> <!-- Etiqueta para el campo de categoría -->
+            <select id="IdProveedor" name="IdProveedor" > <!-- Menú desplegable para seleccionar la categoría de la película, obligatorio -->
+                <!-- Opciones de categorías disponibles -->
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+            </select><!-- Campo de entrada de texto para la descripción de la película, obligatorio -->
+        </div>
+        <button type="submit">Guardar Cambios</button> <!-- Botón para enviar el formulario -->
+    </form>
 
-    <div class="container mt-4">
-        <h1>Modificar Producto</h1>
-        <form id="modificarProductoForm" enctype="multipart/form-data" action="/modificar_producto/" method="POST">
-            <input type="hidden" id="IdProducto" name="idProducto">
-            <div>
-                <label for="nombreProducto">Nombre del Producto:</label>
-                <input type="text" id="nombreProducto" name="nombreProducto">
-            </div>
-            <div>
-                <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio">
-            </div>
-            <div>
-                <label for="stock">Stock:</label>
-                <input type="number" id="stock" name="stock">
-            </div>
-            <button type="submit">Modificar Producto</button>
-        </form>
     <footer class="footer bg-dark text-white py-4">
         <div class="container text-center">
             <div class="row">
@@ -60,8 +77,39 @@
             </div>
         </div>
     </footer>
-    <script src="js/modificar.js"></script>
-    <script src="js/listaRegister.js"></script>
+
+    <script>
+        // Obtener el ID de la película de la URL
+        const urlParams = new URLSearchParams(window.location.search); // Crea un objeto URLSearchParams para trabajar con los parámetros de la URL
+        const productoId = urlParams.get('id'); // Obtiene el valor del parámetro 'id' de la URL
+        // Obtener el formulario y los campos
+        const modificarForm = document.getElementById('modificar-form'); // Obtiene el formulario por su ID
+        const idInput = document.getElementById('producto-id'); // Obtiene el campo oculto de ID
+        const nombreInput = document.getElementById('nombreProducto'); // Obtiene el campo de nombre
+        const marcaInput = document.getElementById('IdMarca'); // Obtiene el campo de descripción
+       // const imagenInput = document.getElementById('imagen'); // Obtiene el campo de fecha
+        const precioInput = document.getElementById('precio'); // Obtiene el campo de precio
+        const stockInput = document.getElementById('stock');
+        const proveedorInput = document.getElementById('IdProveedor');
+        // Rellenar el formulario con los datos de la película correspondiente
+        fetch('/productos/' + productoId) // Realiza una solicitud para obtener los datos de la película con el ID especificado
+            .then(response => response.json()) // Convierte la respuesta en un objeto JSON
+            .then(producto => {
+                // Asigna los datos obtenidos a los campos del formulario
+                idInput.value = producto.id;
+                nombreInput.value = producto.nombreProducto;
+                marcaInput.value = producto.IdMarca;
+                // imagenInput.value = producto.imagen;
+                precioInput.value = producto.precio;
+                stockInput.value = producto.stock;
+                proveedorInput.value = producto.IdProveedor;
+
+            })
+   // Muestra un error en la consola si la solicitud falla
+    </script>
+
+    <!-- <script src="js/modificar.js"></script>
+    <script src="js/listaRegister.js"></script>-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

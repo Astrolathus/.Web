@@ -109,7 +109,7 @@ fetch('/productos/' + IdProducto)
     });
 */
 
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const IdProducto = urlParams.get('IdProducto');
 
@@ -136,5 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('Error al obtener los detalles del producto:', error);
         });
-});
+});*/
+
+
+
 

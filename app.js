@@ -73,7 +73,7 @@ app.post('/registrarUsuario',(req,res)=>{
         } else {
             console.log('Usuario registrado exitosamente:', result);
             res.send('Usuario registrado exitosamente');
-            res.redirect('/');
+            res.redirect('/iniciarSesion.html');
         }
     });
 });
@@ -178,7 +178,7 @@ app.delete('/eliminarProducto/:IdProducto', (req, res) => {
     });
 });
             
-// GET para obtener un producto por su ID
+/*// GET para obtener un producto por su ID
 app.get('/productos/:IdProducto', (req, res) => {
     const idProducto = req.params.idProducto;
   
@@ -208,19 +208,51 @@ app.get('/productos/:IdProducto', (req, res) => {
       });
     });
   });
+*/
 
-// POST para actualizar un producto
-app.post('/modificar_producto', upload.single('imagen'), (req, res) => {
-    const { idProducto, nombreProducto, precio, stock } = req.body;
 
-    const sql = 'UPDATE productos SET nombreProducto = ?, precio = ?, stock = ? WHERE idProducto = ?';
+
+
+
+
+
+app.post('/modificar_producto', (req, res) => {
+    // Desestructura los datos del cuerpo de la solicitud (req.body)
+    const { idProducto, nombreProducto, IdMarca, precio, stock, IdProveedor } = req.body;
+    const sql = 'UPDATE productos SET nombreProducto = ?, IdMarca = ?, precio = ?, stock = ?, IdProveedor = ? WHERE idProducto = ?';
     
-    connection.query(sql, [nombreProducto, precio, stock, idProducto], (err) => {
+    connection.query(sql, [nombreProducto, IdMarca, precio, stock, IdProveedor, idProducto], (err) => {
         if (err) {
-            console.error('Error al actualizar producto:', err);
-            return res.status(500).send('Error al actualizar producto en la base de datos');
+            // Si ocurre un error, muestra un mensaje en la consola y envía una respuesta de error al cliente
+            console.error('Error al modificarel producto:', err);
+            res.status(500).send('Error interno del servidor');
+            return;
         }
-        res.redirect('/registrarProductos.html');
+        // Si la actualización es exitosa, muestra un mensaje en la consola
+        console.log('Producto modificado correctamente.');
+        // Redirecciona al usuario a la página de listado de películas
+        res.redirect('/gestionProductos.html');
+    });
+});
+
+app.get('/productos/:id', (req, res) => {
+    // Extraer el ID de los parámetros de la solicitud
+    const id = req.params.id;
+    // Ejecutar una consulta SQL para obtener los datos de la película con el ID proporcionado
+    connection.query('SELECT * FROM productos WHERE idProducto = ?', [id], (err, result) => {
+        if (err) {
+            // Manejar el error si ocurre durante la consulta
+            console.error('Error al obtener los datos del producto:', err);
+            res.status(500).send('Error interno del servidor');
+            return;
+        }
+        // Verificar si no se encontró ninguna película con el ID proporcionado
+        if (result.length === 0) {
+            res.status(404).send('producto no encontrado');
+            return;
+        }
+        // Enviar los datos de la película como respuesta en formato JSON
+        res.json(result[0]);
     });
 });
 
