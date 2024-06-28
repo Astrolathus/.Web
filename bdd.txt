@@ -1,0 +1,37 @@
+CREATE DATABASE Tecnologia;
+USE Tecnologia;
+
+CREATE TABLE proveedores(
+    IdProveedor INT auto_increment Primary key,
+    nombreProveedor varchar(20) NOT NULL
+);
+CREATE TABLE marcas(
+    IdMarca INT auto_increment Primary key,
+    nombreMarca varchar(20) NOT NULL
+);
+
+CREATE TABLE usuarios(
+id INT PRIMARY KEY AUTO_INCREMENT,
+nombre varchar (255) not null,
+correo VARCHAR(255) NOT NULL,
+contraseña VARCHAR(255) NOT NULL,
+rol INT not null);
+
+CREATE TABLE productos(
+    IdProducto INT auto_increment Primary key,
+    nombreProducto varchar(50) NOT NULL,
+    IdMarca int NOT NULL references marcas(IdMarca),
+    imagen TEXT,
+    precio int NOT NULL,
+    stock int NOT NULL,
+    IdProveedor int NOT NULL  references proveedores(IdProveedor)
+);
+
+ INSERT INTO proveedores (nombreProveedor) VALUES
+('Proveedor A'),
+('Proveedor B'),
+('Proveedor C');
+INSERT INTO marcas (nombreMarca) VALUES
+('Marca X'),
+('Marca Y'),
+('Marca Z');

@@ -26,7 +26,7 @@ app.use('/imagenes', express.static(path.join(__dirname, 'imagenes')));
  
 
 
-//// a
+//// categorias
 
 app.get('/marcas', (req, res) => {
     connection.query('SELECT * FROM marcas', (error, results) => {
@@ -51,7 +51,7 @@ app.get('/proveedores', (req, res) => {
 });
 
 
-/////a
+///// categorias
 
 app.post('/subir_imagenes', upload.single('imagen'), (req, res) =>{
     const {nombreProducto, marca, precio, stock, proveedor} = req.body;
@@ -72,19 +72,17 @@ app.post('/registrarUsuario',(req,res)=>{
             res.send('Error al registrar el usuario');
         } else {
             console.log('Usuario registrado exitosamente:', result);
-            res.send('Usuario registrado exitosamente');
             res.redirect('/iniciarSesion.html');
         }
     });
 });
-app.post('/iniciar_sesion', (req, res) => { // Define una ruta POST para '/iniciar_sesion'
-    const { correo, contraseña } = req.body; // Extrae 'correo' y 'contraseña' del cuerpo de la solicitud
+app.post('/iniciar_sesion', (req, res) => { 
+    const { correo, contraseña } = req.body; 
 
-    // Define la consulta SQL para obtener el rol del usuario que coincida con el correo y la contraseña
     const query = 'SELECT rol FROM usuarios WHERE correo = ? AND contraseña = ?';
 
     connection.query(query, [correo, contraseña], (err, results) => {
-        if (err) { // Si hay un error en la consulta
+        if (err) {
             console.error('Error al iniciar sesión:', err);
             res.send('Error al iniciar sesión'); 
         } else if (results.length > 0) { 
@@ -100,7 +98,6 @@ app.post('/iniciar_sesion', (req, res) => { // Define una ruta POST para '/inici
     });
 });
 
-//Ruta para obtener las imagenes
 app.get('/productos', (req, res) => {
     const sql = 'SELECT * FROM productos';
     connection.query(sql, (err, results) => {
@@ -114,47 +111,8 @@ app.get('/productos', (req, res) => {
   });
 
 app.post('/subir_imagenes', upload.single('imagen'), (req, res) => {
-    // Aquí puedes manejar la carga de imágenes si lo necesitas
     res.status(200).send('Imagen subida correctamente');
   });
-
-
-/*app.post('/actualizarProducto/', (req, res) => {
-    // Desestructura los datos del cuerpo de la solicitud (req.body)
-    const {nombreProducto, marca, precio, stock, proveedor} = req.body;
-    const imagen = req.file.filename;
-    // Consulta SQL para actualizar los datos de la película en la base de datos
-    const sql = 'UPDATE productos SET nombreProducto = ?, marca = ?, imagen = ?, precio = ?, stock = ?, proveedor = ? WHERE id = ?';
-    // Ejecuta la consulta SQL
-    connection.query(sql, [nombreProducto, marca, imagen, precio, stock, proveedor], (err) =>{
-        if (err) {
-            // Si ocurre un error, muestra un mensaje en la consola y envía una respuesta de error al cliente
-            console.error('Error al modificar el producto:', err);
-            res.status(500).send('Error interno del servidor');
-            return;
-        }
-        // Si la actualización es exitosa, muestra un mensaje en la consola
-        console.log('Producto modificado correctamente.');
-        // Redirecciona al usuario a la página de listado de películas
-        res.redirect('/gestionProductos.html');
-    });
-
-    app.get('/productos/:id',(req,res)=>{
-        const id = req.params.id;
-        connection.query('Select * from productos Where IdProducto = ?',[id], (err, result)=>{
-            if(err){
-                console.error('Error al obtener los datos del producto:', err);
-                res.status(500).send('Error interno del servidor');
-                return;
-            }
-            if (result.length === 0){
-                res.status(404).send('Producto no encontrado');
-                return;
-            }
-            res.json(result[0]);
-        });
-    });
-});*/
 
 
 app.delete('/eliminarProducto/:IdProducto', (req, res) => {
@@ -177,97 +135,38 @@ app.delete('/eliminarProducto/:IdProducto', (req, res) => {
         }
     });
 });
-            
-/*// GET para obtener un producto por su ID
-app.get('/productos/:IdProducto', (req, res) => {
-    const idProducto = req.params.idProducto;
-  
-    const sql = 'SELECT * FROM productos WHERE idProducto = ?';
-    connection.query(sql, [idProducto], (err, results) => {
-      if (err) {
-        console.error('Error al obtener los datos del producto:', err);
-        res.status(500).json({ error: 'Error al obtener los datos del producto' });
-        return;
-      }
-  
-      if (results.length === 0) {
-        res.status(404).json({ error: 'Producto no encontrado' });
-        return;
-      }
-  
-      const producto = results[0];
-      res.json({
-        idProducto: producto.idProducto,
-        nombreProducto: producto.nombreProducto,
-        idMarca: producto.idMarca,
-        imagen: producto.imagen, // Suponiendo que esto es el nombre del archivo de imagen en tu servidor
-        precio: producto.precio,
-        stock: producto.stock,
-        idProveedor: producto.idProveedor
-        // Agrega más campos según sea necesario
-      });
-    });
-  });
-*/
-
-
-
-
-
 
 
 app.post('/modificar_producto', (req, res) => {
-    // Desestructura los datos del cuerpo de la solicitud (req.body)
-    const { idProducto, nombreProducto, IdMarca, precio, stock, IdProveedor } = req.body;
-    const sql = 'UPDATE productos SET nombreProducto = ?, IdMarca = ?, precio = ?, stock = ?, IdProveedor = ? WHERE idProducto = ?';
+    const { IdProducto, nombreProducto, IdMarca, precio, stock, IdProveedor } = req.body;
+    const sql = 'UPDATE productos SET nombreProducto = ?, IdMarca = ?, precio = ?, stock = ?, IdProveedor = ? WHERE IdProducto = ?';
     
-    connection.query(sql, [nombreProducto, IdMarca, precio, stock, IdProveedor, idProducto], (err) => {
+    connection.query(sql, [nombreProducto, IdMarca, precio, stock, IdProveedor, IdProducto], (err) => {
         if (err) {
-            // Si ocurre un error, muestra un mensaje en la consola y envía una respuesta de error al cliente
-            console.error('Error al modificarel producto:', err);
+            console.error('Error al modificar el producto:', err);
             res.status(500).send('Error interno del servidor');
             return;
         }
-        // Si la actualización es exitosa, muestra un mensaje en la consola
         console.log('Producto modificado correctamente.');
-        // Redirecciona al usuario a la página de listado de películas
         res.redirect('/gestionProductos.html');
     });
 });
 
 app.get('/productos/:id', (req, res) => {
-    // Extraer el ID de los parámetros de la solicitud
     const id = req.params.id;
-    // Ejecutar una consulta SQL para obtener los datos de la película con el ID proporcionado
-    connection.query('SELECT * FROM productos WHERE idProducto = ?', [id], (err, result) => {
+    connection.query('SELECT * FROM productos WHERE IdProducto = ?', [id], (err, result) => {
         if (err) {
-            // Manejar el error si ocurre durante la consulta
             console.error('Error al obtener los datos del producto:', err);
             res.status(500).send('Error interno del servidor');
             return;
         }
-        // Verificar si no se encontró ninguna película con el ID proporcionado
         if (result.length === 0) {
             res.status(404).send('producto no encontrado');
             return;
         }
-        // Enviar los datos de la película como respuesta en formato JSON
         res.json(result[0]);
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 app.use(express.static(path.join(__dirname, 'public')));

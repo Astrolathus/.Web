@@ -21,6 +21,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaAdmin.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html">Cerrar Sesión</a></li>
                     </ul>
                 </div>
             </div>
@@ -61,7 +62,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+                    <p>¿Estás seguro de que deseas eliminar este producto?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -94,25 +95,17 @@
 
     <script>
 
-        // Función para cargar las películas al cargar la página
         window.onload = function () {
-            // Realizar una solicitud GET a la ruta /peliculas
             fetch('/productos')
-            // Procesar la respuesta como JSON
             .then(function(response) {
                 return response.json();
             })
-            // Cuando se obtienen los datos JSON
             .then(function(data) {
-                // Obtener una referencia al elemento HTML con el ID 'peliculas-list'
                 var productosList = document.getElementById('producto-list');
-                // Iterar sobre cada película en los datos recibidos
                 data.forEach(function(producto) {
-                    // Crear una nueva tarjeta
                     var card = document.createElement('div');
                     card.classList.add('card');
                     card.style.width = '18rem';
-                    // Establecer el contenido HTML de la tarjeta con los datos de la película
                     card.innerHTML = '<img src="/imagenes/' + (producto.imagen) + '" class="card-img-top" alt="' + producto.nombreProducto + '">' +
                                      '<div class="card-body">' +
                                      '<h5 class="card-title">' + producto.nombreProducto + '</h5>' +
@@ -121,12 +114,10 @@
                                      "<button class='btn btn-danger btn-sm' onclick='prepararEliminar(" + producto.IdProducto + ")' data-bs-toggle='modal' data-bs-target='#eliminarModal'>Eliminar</button>" +
                                      '<button class="btn btn-primary" onclick="modificarProducto(' + producto.IdProducto + ')">Modificar</button>' +
                                      '</div>';
-                    // Agregar la tarjeta a la lista de películas
                     productosList.appendChild(card);
                 });
             });
         };
-         // Función para agregar al carrito
     </script>
 
     <script>
@@ -167,28 +158,25 @@
         var productoAEliminar = null;
 
         function prepararEliminar(IdProducto) {
-            // Asigna el ID del usuario a eliminar a la variable global
             productoAEliminar = IdProducto;
         }
         document.getElementById("confirmarEliminarBtn").addEventListener("click", function() {
-            // Verifica que usuarioAEliminar no sea null
             if (productoAEliminar !== null) {
-                // Realiza una solicitud fetch para eliminar el usuario con el ID almacenado en usuarioAEliminar
                 fetch("/eliminarProducto/" + productoAEliminar, {
-                    method: "DELETE" // Especifica el método HTTP DELETE para la solicitud
+                    method: "DELETE" 
                 })
                 .then(function(response) {
                     
                     if (response.ok) {
-                        alert("Usuario eliminado exitosamente");
-                        location.reload(); // Recarga la página para actualizar la lista de usuarios
+                        alert("Producto eliminado exitosamente");
+                        location.reload(); 
                     } else {
-                        alert("Error al eliminar el usuario");
+                        alert("Error al eliminar el producto");
                     }
                 })
                 .catch(function(error) {
-                    // Maneja cualquier error que ocurra durante la solicitud fetch
-                    console.error("Error al eliminar el usuario:", error);
+                    
+                    console.error("Error al eliminar el producto:", error);
                 });
             }
         }); 
@@ -198,9 +186,7 @@
     </script>
 
     <script>
-        // Función para modificar una película
         function modificarProducto(IdProducto) {
-            // Redirigir a la página de modificación de película con el ID correspondiente
             window.location.href = '/modificarProducto.html?id=' + IdProducto;
         }
     </script>
